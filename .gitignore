@@ -2,7 +2,8 @@
 .vscode/*
 
 #binary files
-bin/*
+bin/*.dll
+bin/*.exe*
 
 #generated files
 out/*
