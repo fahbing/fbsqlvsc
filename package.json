@@ -3,9 +3,9 @@
   "displayName": "fbsqlvsc",
   "description": "FB SQL Extension for Visual Studio Code",
   "publisher": "Fahbing",
-  "version": "0.1.5",
+  "version": "0.2.7",
   "engines": {
-    "vscode": "^1.62.0"
+    "vscode": "^1.67.0"
   },
   "categories": [
     "Other"
@@ -26,49 +26,63 @@
         "title": "Execute FBSQL Script"
       }
     ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "fbsqlvsc.buildScript",
+          "when": "isWindows && resourceFilename != script.xss && resourcePath =~ /.xss$|.gpd$|.xss[\\/,\\\\]|.gpd[\\/,\\\\]/",
+          "group": "fbsql@0"
+        },
+        {
+          "command": "fbsqlvsc.execScript",
+          "when": "isWindows && resourcePath =~ /.xss$|.gpd$|.ddg$|.xss[\\/,\\\\]|.gpd[\\/,\\\\]/",
+          "group": "fbsql@0"
+        }
+      ]
+    },
     "configuration": {
       "title": "FBSQL",
       "properties": {
         "FBSQL.beep": {
           "type": "boolean",
           "default": false,
-          "description": "Beep after script run"
+          "description": "Beep after script run."
         },
         "FBSQL.configFile": {
           "type": "string",
           "default": "",
-          "description": "Specifies the folder path containing the config file for the script player",
-					"scope": "resource"
+          "description": "Specifies the folder path containing the config file for the script player.",
+          "scope": "resource"
         },
         "FBSQL.configJpath": {
           "type": "string",
           "default": "$.scriptPlayer",
-          "description": "Specifies the json path to the section in the config file for the script player",
-					"scope": "resource"
+          "description": "Specifies the json path to the section in the config file for the script player.",
+          "scope": "resource"
         },
         "FBSQL.logPath": {
           "type": "string",
           "default": "",
-          "description": "Specifies the folder path to output the script log file",
-					"scope": "resource"
+          "description": "Specifies the folder path to output the script log file.",
+          "scope": "resource"
         },
         "FBSQL.logDelete": {
           "type": "boolean",
           "default": false,
-          "description": "Delete log file after a successful script run",
-					"scope": "resource"
+          "description": "Delete log file after a successful script run.",
+          "scope": "resource"
         },
         "FBSQL.logDisable": {
           "type": "boolean",
           "default": false,
-          "description": "Specifies the folder path to output the script log file",
-					"scope": "resource"
+          "description": "Disables output to a log file.",
+          "scope": "resource"
         },
         "FBSQL.silentMode": {
           "type": "boolean",
           "default": false,
-          "description": "Specifies the folder path to output the script log file",
-					"scope": "resource"
+          "description": "Enables the 'silent mode' script execution mode, no further input is expected.",
+          "scope": "resource"
         }
       }
     }
@@ -84,8 +98,8 @@
   "devDependencies": {
     "@types/glob": "^7.1.4",
     "@types/mocha": "^9.0.0",
-    "@types/node": "14.x",
-    "@types/vscode": "^1.62.0",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.67.0",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "@vscode/test-electron": "^1.6.2",
