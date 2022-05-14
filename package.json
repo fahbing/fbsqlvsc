@@ -30,12 +30,12 @@
       "explorer/context": [
         {
           "command": "fbsqlvsc.buildScript",
-          "when": "isWindows && resourceFilename != script.xss && resourcePath =~ /.xss$|.gpd$|.xss[\\/,\\\\]|.gpd[\\/,\\\\]/",
+          "when": "isWindows && resourcePath =~ /\\.xss[\\/,\\\\]|\\.gpd[\\/,\\\\]/ && resourceFilename != script.xss || explorerResourceIsFolder && resourcePath =~ /\\.xss$|\\.gpd$/",
           "group": "fbsql@0"
         },
         {
           "command": "fbsqlvsc.execScript",
-          "when": "isWindows && resourcePath =~ /.xss$|.gpd$|.ddg$|.xss[\\/,\\\\]|.gpd[\\/,\\\\]/",
+          "when": "isWindows && resourcePath =~ /\\.xss$|\\.gpd$|\\.ddg$|\\.xss[\\/,\\\\]|\\.gpd[\\/,\\\\]/",
           "group": "fbsql@0"
         }
       ]
