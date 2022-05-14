@@ -23,8 +23,8 @@ function exists(fsPath: string): boolean {
 }
 
 /**
- * @description
- * @returns
+ * @description Gets the URI of the current document in the VS Code editor.
+ * @returns {vscode.Uri | undefined}
  */
 function getCurrentDocUri(): vscode.Uri | undefined {
   const editor = vscode.window.activeTextEditor;
@@ -33,13 +33,15 @@ function getCurrentDocUri(): vscode.Uri | undefined {
 }
 
 /**
- * @description
- * @param uri
- * @returns
+ * @description Gets the script folder for an universal resource identifier.
+ * @param uri The URI of a file or folder which is located in the script 
+ * folder.
+ * @returns {string | undefined}
  */
 function getScriptFolder(uri?: vscode.Uri): string | undefined {
   if (uri) {
-    const folderPath = vscode.workspace.getWorkspaceFolder(uri)?.uri.fsPath;
+    const match = uri.fsPath.match(/.*(\.xss$|\.gpd$|\.xss[\/,\\]|\.gpd[\/,\\])/) || [''];
+    const folderPath = match[0].replace(/\\$/, '');
 
     if (folderPath && isDir(folderPath)
       && isScriptExtension(path.extname(folderPath))
@@ -85,7 +87,6 @@ function isScriptExtension(extension: string): boolean {
 /**
  * @description Checks whether fsPath references an existing FBSQL script file.
  * @param {string} fsPath The file system path to be checked.
- * @returns {boolean}.
  */
 function isScriptFile(fsPath: string): boolean {
   return isFile(fsPath) && isScriptExtension(path.extname(fsPath));
@@ -94,9 +95,9 @@ function isScriptFile(fsPath: string): boolean {
 /**
  * @description Builds a FBSQL script file for a folder in a terminal.
  * @param context A vscode.ExtensionContext instance.
- * @returns
  */
-export function buildScript(context: vscode.ExtensionContext, uri?: vscode.Uri) {
+export function buildScript(context: vscode.ExtensionContext
+  , uri?: vscode.Uri) {
   const workspaceFolders = vscode.workspace?.workspaceFolders;
 
   if (workspaceFolders) {
@@ -132,7 +133,8 @@ export function buildScript(context: vscode.ExtensionContext, uri?: vscode.Uri) 
 /**
  * @description Executes a FBSQL script file/folder in a terminal.
  * @param context A vscode.ExtensionContext instance.
- * @returns
+ * @param uri .
+ * @returns {any}
  */
 export function execScript(context: vscode.ExtensionContext, uri?: vscode.Uri): any {
   const workspaceFolders = vscode.workspace?.workspaceFolders;
