@@ -4,9 +4,9 @@
   "description": "FB SQL Extension for Visual Studio Code",
   "publisher": "Fahbing",
   "author": "D. Striebing",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "license": "MIT",
-	"icon": "fbsqlvsc_icon.png",
+	"icon": "images/fbsqlvsc_icon.png",
   "os": ["win64"],
   "private": true,
   "repository": {
