@@ -106,17 +106,23 @@ export function buildScript(context: vscode.ExtensionContext
 
     if (uri) {
       if (!isScriptFile(uri.fsPath)) {
+        const config = vscode.workspace.getConfiguration('FBSQL', uri);
+        const silentMode = config['silentMode'];
         const scriptPath = getScriptFolder(uri);
 
         if (scriptPath) {
           const playerPath = path.join(context.extensionPath, 'bin', scriptPlayer);
-          const cmd = `"${playerPath}" "${scriptPath}" /b`;
+          const cmd = `"${playerPath}" "${scriptPath}" /b`
+            + (silentMode ? ' /s' : '');
           const terminal = vscode.window.createTerminal(terminalName, shellPath);
 
           terminal.show();
           terminal.sendText(cmd);
-          terminal.sendText('if not %errorlevel%==0 pause');
-          terminal.sendText('exit');
+
+          if (silentMode) {
+            terminal.sendText('if not %errorlevel%==0 pause');
+            terminal.sendText('exit');
+          }
 
           return;
         }
@@ -147,29 +153,28 @@ export function execScript(context: vscode.ExtensionContext, uri?: vscode.Uri): 
       scriptPath = getScriptFolder(uri);
     }
 
-    const config = vscode.workspace.getConfiguration('FBSQL', uri);
-
     if (scriptPath) {
+      const config = vscode.workspace.getConfiguration('FBSQL', uri);
       const playerPath = path.join(context.extensionPath, 'bin', scriptPlayer);
       const configFile = config['configFile'];
       const configJPath = config['configJpath'] || '$';
       const logPath = config['logDisable']
         ? false : config['logPath'] || os.tmpdir();
-      const silectMode = config['silentMode'];
+      const silentMode = config['silentMode'];
 
       const cmd = `"${playerPath}" "${scriptPath}" /c:"${configFile}"`
         + (configJPath !== '$' ? ` /p:"${configJPath}"` : '')
         + (logPath ? ` /l:"${logPath}"` : '')
         + (config['beep'] ? ' /a' : '')
         + (config['logDelete'] ? ' /d' : '')
-        + (config['silentMode'] ? ' /s' : '');
+        + (silentMode ? ' /s' : '');
 
       const terminal = vscode.window.createTerminal(terminalName, shellPath);
 
       terminal.show();
       terminal.sendText(cmd);
 
-      if (silectMode) {
+      if (silentMode) {
         terminal.sendText('if not %errorlevel%==0 pause');
         terminal.sendText('exit');
       }
