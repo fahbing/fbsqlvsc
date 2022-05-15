@@ -3,7 +3,17 @@
   "displayName": "fbsqlvsc",
   "description": "FB SQL Extension for Visual Studio Code",
   "publisher": "Fahbing",
+  "author": "D. Striebing",
   "version": "0.2.7",
+  "license": "MIT",
+	"icon": "fbsqlvsc_icon.png",
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/fahbing/fbsqlvsc.git"
+	},
+	"bugs": {
+		"url": "https://github.com/fahbing/fbsqlvsc/issues"
+	},
   "engines": {
     "vscode": "^1.67.0"
   },
