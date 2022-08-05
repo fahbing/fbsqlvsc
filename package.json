@@ -4,10 +4,11 @@
   "description": "FB SQL Extension for Visual Studio Code",
   "publisher": "Fahbing",
   "author": "D. Striebing",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "license": "MIT",
 	"icon": "images/fbsqlvsc_icon.png",
-  "os": ["win64"],
+  "os": ["win32"],
+  "arch": ["x64"],
   "private": true,
   "repository": {
 		"type": "git",
@@ -17,7 +18,7 @@
 		"url": "https://github.com/fahbing/fbsqlvsc/issues"
 	},
   "engines": {
-    "vscode": "^1.67.0"
+    "vscode": "^1.70.0"
   },
   "categories": [
     "Other"
@@ -81,7 +82,7 @@
         "FBSQL.logDelete": {
           "type": "boolean",
           "default": false,
-          "description": "Delete log file after a successful script run.",
+          "description": "Deletes log file after a successful script run.",
           "scope": "resource"
         },
         "FBSQL.logDisable": {
@@ -108,17 +109,17 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/glob": "^7.1.4",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "16.x",
-    "@types/vscode": "^1.67.0",
-    "@typescript-eslint/eslint-plugin": "^5.1.0",
-    "@typescript-eslint/parser": "^5.1.0",
-    "@vscode/test-electron": "^1.6.2",
-    "eslint": "^8.1.0",
-    "glob": "^7.1.7",
-    "mocha": "^9.1.3",
-    "typescript": "^4.4.4"
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.6.4",
+    "@types/vscode": "^1.69.1",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.21.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.4"
   },
   "dependencies": {
     "audit": "^0.0.6"

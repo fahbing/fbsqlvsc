@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.2.9 - August 5, 2022
+- includes FBSQL Command Line Script Player, Version 1.0.30
+  - command is no longer processed from a select statement - fix
+
 ## 0.2.8 - May 15, 2022
 - the building and execution of a script is now also possible from the explorer context menu
 - a script folder no longer needs to be a workspace folder and can also be located within it
