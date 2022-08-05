@@ -13,14 +13,14 @@ Both commands can also be executed by the Command Palette if the above criteria 
 
 
 ## Requirements
-- VS Code 1.67.1 or higher
+- VS Code 1.70.0 or higher
 - .Net Framework 4.7.2
 
 
 ## Offline Installation
 
 ``` ps
-code --install-extension fbsqlvsc-0.2.8.vsix
+code --install-extension fbsqlvsc-0.2.9.vsix
 ```
 
 ## Extension settings
