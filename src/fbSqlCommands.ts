@@ -107,6 +107,7 @@ export function buildScript(context: vscode.ExtensionContext
     if (uri) {
       if (!isScriptFile(uri.fsPath)) {
         const config = vscode.workspace.getConfiguration('FBSQL', uri);
+        const disableAutoClose = config['disableAutoClose'];
         const silentMode = config['silentMode'];
         const scriptPath = getScriptFolder(uri);
 
@@ -119,7 +120,7 @@ export function buildScript(context: vscode.ExtensionContext
           terminal.show();
           terminal.sendText(cmd);
 
-          if (silentMode) {
+          if (silentMode && !disableAutoClose) {
             terminal.sendText('if not %errorlevel%==0 pause');
             terminal.sendText('exit');
           }
@@ -158,6 +159,7 @@ export function execScript(context: vscode.ExtensionContext, uri?: vscode.Uri): 
       const playerPath = path.join(context.extensionPath, 'bin', scriptPlayer);
       const configFile = config['configFile'];
       const configJPath = config['configJpath'] || '$';
+      const disableAutoClose = config['disableAutoClose'];
       const logPath = config['logDisable']
         ? false : config['logPath'] || os.tmpdir();
       const silentMode = config['silentMode'];
@@ -170,11 +172,11 @@ export function execScript(context: vscode.ExtensionContext, uri?: vscode.Uri): 
         + (silentMode ? ' /s' : '');
 
       const terminal = vscode.window.createTerminal(terminalName, shellPath);
-
+      
       terminal.show();
       terminal.sendText(cmd);
 
-      if (silentMode) {
+      if (silentMode && !disableAutoClose) {
         terminal.sendText('if not %errorlevel%==0 pause');
         terminal.sendText('exit');
       }

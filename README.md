@@ -20,7 +20,7 @@ Both commands can also be executed by the Command Palette if the above criteria 
 ## Offline Installation
 
 ``` ps
-code --install-extension fbsqlvsc-0.2.9.vsix
+code --install-extension fbsqlvsc-0.3.11.vsix
 ```
 
 ## Extension settings
@@ -30,6 +30,7 @@ code --install-extension fbsqlvsc-0.2.9.vsix
 | FBSQL.beep | Beeps when the script run has finished. |
 | FBSQL.configFile | Specifies the folder path containing the config file for the script player. |
 | FBSQL.configJpath | Specifies the json path to the section in the config file for the script player. |
+| FBSQL.disableAutoClose | Prevents the automatic closing of the terminal session after successful script execution in silent mode. |
 | FBSQL.logDelete | Deletes the log file after a successful script run. |
 | FBSQL.logDisable | Disables output to a log file. |
 | FBSQL.logPath | Specifies the path to output the log file. If only a directory is specified, the file name is concated from the "SQL_" prefix, the machine name, and the current time, e.g. SQL_SERVER01_2022_05_20_23_15_18_588.log. If the value is empty, the automatically named log file is output in the Temp folder of the current user. |

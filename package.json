@@ -4,7 +4,7 @@
   "description": "FB SQL Extension for Visual Studio Code",
   "publisher": "Fahbing",
   "author": "D. Striebing",
-  "version": "0.2.9",
+  "version": "0.3.11",
   "license": "MIT",
 	"icon": "images/fbsqlvsc_icon.png",
   "os": ["win32"],
@@ -72,6 +72,11 @@
           "default": "$.scriptPlayer",
           "description": "Specifies the json path to the section in the config file for the script player.",
           "scope": "resource"
+        },
+        "FBSQL.disableAutoClose": {
+          "type": "boolean",
+          "default": false,
+          "description": "Prevents the automatic closing of the terminal session after successful script execution in silent mode."
         },
         "FBSQL.logPath": {
           "type": "string",
