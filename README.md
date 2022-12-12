@@ -43,10 +43,9 @@ An FBSQL script is an XML-formatted text file in which SQL commands are arranged
 This makes it possible to manage complex SQL scripts clearly. For example, individual statements or even complete branches in the script can be excluded from execution by deactivation.
 The first version dates back to 2006 and was developed in Object Pascal.
 
-![FbSqlScript program from 2010](images/fbsqlscript_2010.png)
-
 It wasn't until 2012 that a folder-based script format was developed for use in a Git repository. This can be converted into a script file and back into a folder-based script.
 From the beginning, FBSQL scripts supported the definition and use of placeholders. Placeholder are strings whose occurrences are replaced in all commands. These are often used to adjust database names and file paths to a central point in the script.
+
 Since 2021, these can now also be assigned in an external JSON formated configuration file. In 2022, the possibility of storing encrypted strings in placeholders was developed.
 
 ### The script file (.xss)
@@ -58,18 +57,18 @@ The extension "xss" stands for **X**ML **S**ql **S**cript.
 
 A **script** element contains a **version** element whose attributes return the version number of the script, and a **batch** element that serves as the root for other **batch** and ** step** elements.
 
-##### Attribute of the **script** element
+##### Attributes of the **script** element
 
 | Attribute | Description | Default |
 | --- | --- | --- |
 | version | Required string attribute. The version of the FBSQL Script, currently "4.0". |  |
-| sqllanguage | Optional string attribute. Used for backwards compatibility for syntax highlighting in the old desktop application ("TSQL" - similar to MS SQL Server Management Studio or "MySQL" - as in MySQL Workbench). | TSQL |
+| sqllanguage | Optional string attribute. Used for backwards compatibility for the syntax highlighting color settings in the old desktop application ("TSQL" - similar to MS SQL Server Management Studio or "MySQL" - as in MySQL Workbench). | TSQL |
 
 #### The **version** element
 
 Defines the version number of the script, consisting of major, minor, release and build number.
 
-##### Attribute of the **version** element
+##### Attributes of the **version** element
 
 | Attribute | Description | Default |
 | --- | --- | --- |
@@ -196,6 +195,7 @@ CONNECT 'Provider={provider};{connectionstring}'
 
 ##### Provider **sqlclient**
 Connects to a SQL Server database. For backward compatibility, "sqloledb.1" is also accepted. 
+
 For information on a connection string for SQL Server, see:
 https://learn.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
@@ -205,6 +205,7 @@ CONNECT 'Provider=sqlclient;Data Source=.\MSSQL2016;Initial Catalog=DEVDB;Integr
 
 ##### Provider **odbc**
 Connects to an ODBC data source. For backward compatibility, "msdasql.1" is also accepted. 
+
 For information on a connection string for ODBC, see:
 https://learn.microsoft.com/en-us/dotnet/api/system.data.odbc.odbcconnection.connectionstring
 
@@ -216,6 +217,7 @@ CONNECT 'Provider=odbc;DSN=DEVDB_over_ODBC';
 
 ##### other Provider
 Connects over an OLE DB driver to a database. In this case, in contrast to the other connection types, the provider is passed internally to the connection object as part of the connection string.
+
 For information on an OLE DB connection string, see:
 https://learn.microsoft.com/en-us/dotnet/api/system.data.oledb.oledbconnection.connectionstring
 
@@ -238,14 +240,14 @@ Triggers a ROLLBACK for the current transaction and then starts a new one.
 Defines a placeholder and its value. If the placeholder already exists, only the value is reassigned. Placeholder names are any string of characters that are searched for in each command and any occurrences found are replaced with the value of the placeholder.
 Therefore, the name of a placeholder should be chosen carefully so that it cannot be accidentally replaced in the wrong place.
 
-``` tsql
+```tsql
 SET PLACEHOLDER '{placeholder_name}' '{placeholder_value}';
 ```
 
 Of course, placeholders can be misused to insert injection code. However, since the script player is intended as a tool for use in a highly administrator-controlled environment, both the script and the configuration file are in the hands of the administrator himself. Protection against code injection is also the reason that the Access to encrypted placeholders cannot be transferred to other user accounts.
 
 example:
-``` tsql
+```tsql
 SET PLACEHOLDER '$server$'         '.';
 SET PLACEHOLDER '$instance$'       '\MSSQL2016';
 SET PLACEHOLDER '$dbname$'         'DEVDB';
@@ -277,10 +279,9 @@ GO
 
 #### SET TERM 
 Specifies a new terminator character or string.
-``` tsql
+```tsql
 SET TERM $$
 ```
-
 
 #### SET TIMEOUT 
 Sets a new timeout (in seconds) for a SQL command. A value of 0 means an unlimited wait time.
@@ -293,15 +294,13 @@ The following message is issued for each command as long as no transaction is ac
 ```log
 -- info: No transaction is currently active.
 ```
-_STOPTRANSACTION does not work for the ODBC provider!_
 
 
 #### STARTTRANSACTION
 Starts a new transaction.
-``` tsql
+```tsql
 STARTTRANSACTION;
 ```
-_STARTTRANSACTION does not work for the ODBC provider!_
 
 
 ## About the FBSQL Command Line Script Player
